@@ -6,9 +6,9 @@ except ModuleNotFoundError:
 
 
 class BlEncr:
-    def __init__(self, plain_text, code):
+    def __init__(self, plain_text, key):
         self.plain_text = plain_text
-        self.bin_code = bin(code)
+        self.key = bin(key)
         self.storage = []
 
     def operate(self, nonce):
@@ -17,7 +17,7 @@ class BlEncr:
 
         for index, letter in enumerate(self.plain_text):
             value = bin(nonce[index])
-            encrypter = Encrypter(value, self.bin_code)
+            encrypter = Encrypter(value, self.key)
 
             encrypted_block = encrypter.operate()
             cipher_text = bin(int(encrypted_block, 2) ^ ord(letter))
@@ -58,12 +58,12 @@ if __name__ == '__main__':
             print('Bye')
             break
 
-        nonce = list(map(int, input('\nEnter the nonce:\t ').split()))
+        nonce = list(map(int, input('\nEnter the nonce:\t').split()))
 
         while True:
             try:
-                code = int(input('Enter the code:\t\t '))
-                plain_text = input('Enter the open text:\t ')
+                key = int(input('Enter the key:\t\t'))
+                plain_text = input('Enter the open text:\t')
 
                 break
 
@@ -71,5 +71,5 @@ if __name__ == '__main__':
                 print('\nFollow the instructions\n')
                 continue
 
-        bl_encr = BlEncr(plain_text, code)
+        bl_encr = BlEncr(plain_text, key)
         print(parse_bin_to_str(''.join(bl_encr.operate(nonce))))
