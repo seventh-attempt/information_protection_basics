@@ -63,7 +63,7 @@ if __name__ == '__main__':
         while True:
             try:
                 code = int(input('Enter the code:\t\t '))
-                plain_text = input('Enter the open text: ')
+                plain_text = input('Enter the open text:\t ')
 
                 break
 
